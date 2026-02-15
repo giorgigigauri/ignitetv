@@ -10,6 +10,7 @@ import {
   VolumeX,
   Maximize,
   MonitorSmartphone,
+  Loader2,
 } from "lucide-react";
 
 interface LivePlayerProps {
@@ -23,6 +24,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
   const hlsRef = useRef<Hls | null>(null);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [controlsVisible, setControlsVisible] = useState(false);
 
   // Initialize HLS
@@ -30,12 +32,21 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
     const video = videoRef.current;
     if (!video || !streamUrl) return;
 
+    setLoading(true);
+
+    const onPlaying = () => setLoading(false);
+    const onWaiting = () => setLoading(true);
+    const onCanPlay = () => setLoading(false);
+
+    video.addEventListener("playing", onPlaying);
+    video.addEventListener("waiting", onWaiting);
+    video.addEventListener("canplay", onCanPlay);
+
     if (Hls.isSupported()) {
       const hls = new Hls({
         liveSyncDurationCount: 3,
         liveMaxLatencyDurationCount: 6,
       });
-      console.log('streamUrl' + streamUrl);
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -46,12 +57,21 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
       return () => {
         hls.destroy();
         hlsRef.current = null;
+        video.removeEventListener("playing", onPlaying);
+        video.removeEventListener("waiting", onWaiting);
+        video.removeEventListener("canplay", onCanPlay);
       };
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // Safari native HLS
       video.src = streamUrl;
       video.play().catch(() => {});
     }
+
+    return () => {
+      video.removeEventListener("playing", onPlaying);
+      video.removeEventListener("waiting", onWaiting);
+      video.removeEventListener("canplay", onCanPlay);
+    };
   }, [streamUrl]);
 
   // Sync play/pause state
@@ -105,6 +125,13 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
           priority
           sizes="100vw"
         />
+      )}
+
+      {/* Loading Spinner */}
+      {loading && playing && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40">
+          <Loader2 className="w-12 h-12 text-white animate-spin" />
+        </div>
       )}
 
       {/* Center Play Button */}
