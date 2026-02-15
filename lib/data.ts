@@ -11,22 +11,21 @@ export interface DVRItem {
   downloadsize: string;
 }
 
-interface DVRResponse {
+export interface DVRResponse {
   title: string;
   stream: string;
   thumb: string;
   dvr: DVRItem[];
 }
 
-export async function fetchDVR(): Promise<DVRItem[]> {
+export async function fetchDVR(): Promise<DVRResponse> {
   const res = await fetch("https://tulixdvr2.tulix.tv/api/ignitetv/getdvr.php", {
     next: { revalidate: 300 },
   });
   if (!res.ok) {
     throw new Error("Failed to fetch DVR");
   }
-  const data: DVRResponse = await res.json();
-  return data.dvr;
+  return res.json();
 }
 
 export interface VODSeries {

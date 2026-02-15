@@ -1,13 +1,12 @@
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import LivePlayer from "@/components/live-player";
-import CatchUp from "@/components/catch-up";
+import PlayerWithCatchUp from "@/components/player-with-catchup";
 import ShowsGrid from "@/components/shows-grid";
 import NewsSection from "@/components/news-section";
 import { fetchVODs, fetchDVR } from "@/lib/data";
 
 export default async function HomePage() {
-  const [categories, dvrItems] = await Promise.all([fetchVODs(), fetchDVR()]);
+  const [categories, dvr] = await Promise.all([fetchVODs(), fetchDVR()]);
   const igniteNews = categories.find((c) =>
     c.title.toLowerCase().includes("ignite news"),
   );
@@ -17,20 +16,11 @@ export default async function HomePage() {
       <Header />
 
       <main className="max-w-7xl mx-auto">
-        {/* Page Title */}
-        <div className="px-4 md:px-8 pt-2 pb-2">
-          <h1 className="text-lg font-bold text-primary font-serif italic">
-            Live Streaming
-          </h1>
-        </div>
-
-        {/* Live Video Player */}
-        <div className="px-4 md:px-8">
-          <LivePlayer />
-        </div>
-
-        {/* Catch-Up Section */}
-        <CatchUp items={dvrItems} />
+        <PlayerWithCatchUp
+          liveStream={dvr.stream}
+          liveTitle={dvr.title}
+          dvrItems={dvr.dvr}
+        />
 
         {/* Shows Section */}
         <ShowsGrid categories={categories} />

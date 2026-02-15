@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Hls from "hls.js";
 import {
   Play,
   Pause,
@@ -11,10 +12,68 @@ import {
   MonitorSmartphone,
 } from "lucide-react";
 
-export default function LivePlayer() {
+interface LivePlayerProps {
+  streamUrl?: string;
+  title?: string;
+  isLive?: boolean;
+}
+
+export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
   const [controlsVisible, setControlsVisible] = useState(false);
+
+  // Initialize HLS
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !streamUrl) return;
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        liveSyncDurationCount: 3,
+        liveMaxLatencyDurationCount: 6,
+      });
+      console.log('streamUrl' + streamUrl);
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {});
+      });
+      hlsRef.current = hls;
+
+      return () => {
+        hls.destroy();
+        hlsRef.current = null;
+      };
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      // Safari native HLS
+      video.src = streamUrl;
+      video.play().catch(() => {});
+    }
+  }, [streamUrl]);
+
+  // Sync play/pause state
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (playing) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [playing]);
+
+  // Sync muted state
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = muted;
+  }, [muted]);
+
+  const togglePlay = useCallback(() => setPlaying((p) => !p), []);
+  const toggleMute = useCallback(() => setMuted((m) => !m), []);
 
   return (
     <div
@@ -28,24 +87,52 @@ export default function LivePlayer() {
         }
       }}
     >
-      {/* Video placeholder image */}
-      <Image
-        src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&h=675&fit=crop"
-        alt="Live stream broadcast"
-        fill
-        className="object-cover"
-        priority
-        sizes="100vw"
-      />
+      {/* Live stream video */}
+      {streamUrl ? (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted={muted}
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : (
+        <Image
+          src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&h=675&fit=crop"
+          alt="Live stream broadcast"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      )}
 
-      {/* Live Badge */}
+      {/* Center Play Button */}
+      {!playing && (
+        <button
+          type="button"
+          onClick={togglePlay}
+          className="absolute inset-0 z-10 flex items-center justify-center bg-black/30 transition-colors"
+          aria-label="Play"
+        >
+          <Play className="w-16 h-16 text-white fill-white drop-shadow-lg" />
+        </button>
+      )}
+
+      {/* Title Badge */}
       <div className="absolute top-4 right-4 z-10">
-        <div className="bg-background/60 backdrop-blur-sm px-3 py-1 rounded-sm border border-primary/30">
-          <span className="text-primary font-bold text-sm tracking-wider">IGNITE</span>
+        <div className="bg-background/60 backdrop-blur-sm px-3 py-1 rounded-sm border border-primary/30 flex items-center gap-2">
+          {isLive && (
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-red-400 font-bold text-sm tracking-wider">LIVE</span>
+            </span>
+          )}
+          <span className="text-primary font-bold text-sm tracking-wider">{title || "IGNITE"}</span>
         </div>
       </div>
 
-      {/* Controls Bar - always visible on focus-within for keyboard users */}
+      {/* Controls Bar */}
       <div
         className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent p-3 flex items-center gap-3 transition-opacity duration-200 ${
           controlsVisible ? "opacity-100" : "opacity-0 focus-within:opacity-100"
@@ -53,7 +140,7 @@ export default function LivePlayer() {
       >
         <button
           type="button"
-          onClick={() => setPlaying(!playing)}
+          onClick={togglePlay}
           className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
           aria-label={playing ? "Pause" : "Play"}
         >
@@ -70,7 +157,7 @@ export default function LivePlayer() {
         <div className="flex-1" />
         <button
           type="button"
-          onClick={() => setMuted(!muted)}
+          onClick={toggleMute}
           className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
           aria-label={muted ? "Unmute" : "Mute"}
         >
