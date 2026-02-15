@@ -18,12 +18,15 @@ export default function PlayerWithCatchUp({
 }: PlayerWithCatchUpProps) {
   const [streamUrl, setStreamUrl] = useState(liveStream);
   const [title, setTitle] = useState(liveTitle);
+  const [thumb, setThumb] = useState<string | undefined>(undefined);
+  const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
   const [isLive, setIsLive] = useState(true);
 
   function handleSelectDVR(item: DVRItem) {
-      console.log("handleSelectDVR", item);
     setStreamUrl(item.stream.replace('.ts.m3u8', '.m3u8'));
     setTitle(liveTitle + ' - ' + item.title);
+    setThumb(item.thumb);
+    setDownloadUrl(item.downloadurl);
     setIsLive(false);
   }
 
@@ -38,7 +41,7 @@ export default function PlayerWithCatchUp({
 
       {/* Live Video Player */}
       <div className="px-4 md:px-8">
-        <LivePlayer streamUrl={streamUrl} title={title} isLive={isLive} />
+        <LivePlayer streamUrl={streamUrl} title={title} isLive={isLive} poster={thumb} downloadUrl={downloadUrl} />
       </div>
 
       {/* Catch-Up Section */}

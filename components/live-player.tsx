@@ -9,7 +9,7 @@ import {
   Volume2,
   VolumeX,
   Maximize,
-  MonitorSmartphone,
+  Download,
   Loader2,
 } from "lucide-react";
 
@@ -17,9 +17,11 @@ interface LivePlayerProps {
   streamUrl?: string;
   title?: string;
   isLive?: boolean;
+  poster?: string;
+  downloadUrl?: string;
 }
 
-export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlayerProps) {
+export default function LivePlayer({ streamUrl, title, isLive = true, poster, downloadUrl }: LivePlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const [playing, setPlaying] = useState(true);
@@ -114,6 +116,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
           autoPlay
           muted={muted}
           playsInline
+          poster={poster}
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : (
@@ -194,13 +197,16 @@ export default function LivePlayer({ streamUrl, title, isLive = true }: LivePlay
             <Volume2 className="w-5 h-5" />
           )}
         </button>
-        <button
-          type="button"
-          className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
-          aria-label="Picture in picture"
-        >
-          <MonitorSmartphone className="w-5 h-5" />
-        </button>
+        {downloadUrl && (
+          <a
+            href={downloadUrl}
+            download
+            className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
+            aria-label="Download"
+          >
+            <Download className="w-5 h-5" />
+          </a>
+        )}
         <button
           type="button"
           className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
