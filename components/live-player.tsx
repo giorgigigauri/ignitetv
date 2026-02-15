@@ -200,7 +200,8 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
         {downloadUrl && (
           <a
             href={downloadUrl}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors p-1 rounded-sm"
             aria-label="Download"
           >

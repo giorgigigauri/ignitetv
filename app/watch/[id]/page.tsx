@@ -56,7 +56,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
 
         {/* Video Player */}
         <div className="px-4 md:px-8">
-          <VideoPlayer />
+          <VideoPlayer src={foundVideo.video} poster={foundVideo.imageUrl} />
         </div>
 
         {/* Article Title */}
@@ -84,7 +84,6 @@ export default async function WatchPage({ params }: WatchPageProps) {
           {/* Text Content */}
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground flex-wrap">
-              <span>{formatDuration(foundVideo.duration)}</span>
               {foundVideo.rdate && <span>{foundVideo.rdate}</span>}
               <Link
                 href={`/shows/${encodeURIComponent(parentCategory.title)}`}
@@ -99,7 +98,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
               </p>
             ) : (
               <p className="text-sm text-muted-foreground leading-relaxed italic">
-                Watch this episode for the full story and in-depth coverage.
+
               </p>
             )}
             {foundVideo.starring && (
