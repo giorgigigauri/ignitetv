@@ -1,3 +1,34 @@
+export interface DVRItem {
+  id: number;
+  starttime: string;
+  endtime: string;
+  duration: number;
+  title: string;
+  descr: string;
+  thumb: string;
+  stream: string;
+  downloadurl: string;
+  downloadsize: string;
+}
+
+interface DVRResponse {
+  title: string;
+  stream: string;
+  thumb: string;
+  dvr: DVRItem[];
+}
+
+export async function fetchDVR(): Promise<DVRItem[]> {
+  const res = await fetch("https://tulixdvr2.tulix.tv/api/ignitetv/getdvr.php", {
+    next: { revalidate: 300 },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch DVR");
+  }
+  const data: DVRResponse = await res.json();
+  return data.dvr;
+}
+
 export interface VODSeries {
   id: string;
   duration: number;
@@ -38,36 +69,3 @@ export function formatDuration(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-// Catch-up schedule items (static since the API doesn't provide schedule data)
-export const catchUpItems = [
-  {
-    title: "Ignite News",
-    time: "11:00am-12:00pm (EST)",
-    slug: "catchup-ignite-news",
-  },
-  {
-    title: "Program Name",
-    time: "10:00am-11:00am (EST)",
-    slug: "catchup-program",
-  },
-  {
-    title: "Learning Time",
-    time: "9:00am-10:00am (EST)",
-    slug: "catchup-learning",
-  },
-  {
-    title: "Best of Ignite",
-    time: "8:00am-9:00am (EST)",
-    slug: "catchup-best",
-  },
-  {
-    title: "Ignite News",
-    time: "11:00am-12:00pm (EST)",
-    slug: "catchup-ignite-news-2",
-  },
-  {
-    title: "Community Hour",
-    time: "10:00am-11:00am (EST)",
-    slug: "catchup-community",
-  },
-];

@@ -4,10 +4,10 @@ import LivePlayer from "@/components/live-player";
 import CatchUp from "@/components/catch-up";
 import ShowsGrid from "@/components/shows-grid";
 import NewsSection from "@/components/news-section";
-import { fetchVODs } from "@/lib/data";
+import { fetchVODs, fetchDVR } from "@/lib/data";
 
 export default async function HomePage() {
-  const categories = await fetchVODs();
+  const [categories, dvrItems] = await Promise.all([fetchVODs(), fetchDVR()]);
   const igniteNews = categories.find((c) =>
     c.title.toLowerCase().includes("ignite news"),
   );
@@ -30,7 +30,7 @@ export default async function HomePage() {
         </div>
 
         {/* Catch-Up Section */}
-        <CatchUp categories={categories} />
+        <CatchUp items={dvrItems} />
 
         {/* Shows Section */}
         <ShowsGrid categories={categories} />
