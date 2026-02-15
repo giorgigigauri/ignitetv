@@ -74,13 +74,15 @@ export default function Header({ shows = [] }: HeaderProps) {
         href="/"
         className="flex-shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <Image
-          src="/ignitetelevision-logo.png"
-          alt="Ignite Television"
-          width={48}
-          height={48}
-          className="rounded-full"
-        />
+        <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+          <Image
+            src="/ignitetelevision-logo.png"
+            alt="Ignite Television"
+            width={56}
+            height={56}
+            className="rounded-full bg-white"
+          />
+        </div>
       </Link>
 
       {/* Desktop Navigation */}
