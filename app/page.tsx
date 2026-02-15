@@ -3,7 +3,7 @@ import Footer from "@/components/footer";
 import PlayerWithCatchUp from "@/components/player-with-catchup";
 import ShowsGrid from "@/components/shows-grid";
 import NewsSection from "@/components/news-section";
-import { fetchVODs, fetchDVR } from "@/lib/data";
+import { fetchVODs, fetchDVR, categoriesToShows } from "@/lib/data";
 
 export default async function HomePage() {
   const [categories, dvr] = await Promise.all([fetchVODs(), fetchDVR()]);
@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">
         <PlayerWithCatchUp

@@ -58,6 +58,13 @@ export async function fetchVODs(): Promise<VODCategory[]> {
   return res.json();
 }
 
+export function categoriesToShows(categories: VODCategory[]) {
+  return categories.map((cat) => ({
+    name: cat.title,
+    href: `/shows/${encodeURIComponent(cat.title)}`,
+  }));
+}
+
 export function formatDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);

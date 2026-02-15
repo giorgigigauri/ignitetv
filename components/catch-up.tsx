@@ -47,7 +47,7 @@ export default function CatchUp({ items, onSelect }: CatchUpProps) {
                   src={item.thumb}
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300"
+                  className="object-contain group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300"
                   sizes="160px"
                 />
               )}

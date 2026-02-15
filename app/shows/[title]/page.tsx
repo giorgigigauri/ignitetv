@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import ShowsGrid from "@/components/shows-grid";
 import VODCard from "@/components/vod-card";
 import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs } from "@/lib/data";
+import { fetchVODs, categoriesToShows } from "@/lib/data";
 
 interface ShowDetailPageProps {
   params: Promise<{ title: string }>;
@@ -24,7 +24,7 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}

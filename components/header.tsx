@@ -4,16 +4,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 
-const showsList = [
-  { name: "Ignite News", href: "/shows" },
-  { name: "Ignite Finance", href: "/shows" },
-  { name: "Ministry Documentary", href: "/shows" },
-  { name: "President Diary", href: "/shows" },
-  { name: "United Biodiversity", href: "/shows" },
-  { name: "Weekly Digest", href: "/shows" },
-];
+interface HeaderProps {
+  shows?: { name: string; href: string }[];
+}
 
-export default function Header() {
+export default function Header({ shows = [] }: HeaderProps) {
+  const showsList = shows;
   const [showsOpen, setShowsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

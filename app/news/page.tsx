@@ -6,7 +6,7 @@ import ShowsGrid from "@/components/shows-grid";
 import VideoPlayer from "@/components/video-player";
 import VODCard from "@/components/vod-card";
 import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs, formatDuration } from "@/lib/data";
+import { fetchVODs, formatDuration, categoriesToShows } from "@/lib/data";
 
 export default async function NewsPage() {
   const categories = await fetchVODs();
@@ -26,7 +26,7 @@ export default async function NewsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}
@@ -83,8 +83,6 @@ export default async function NewsPage() {
                   </p>
                 ) : (
                   <p className="text-sm text-muted-foreground leading-relaxed italic">
-                    Watch the latest episode of Ignite News for the full story and
-                    in-depth coverage.
                   </p>
                 )}
               </div>

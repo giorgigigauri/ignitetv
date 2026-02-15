@@ -7,7 +7,7 @@ import ShowsGrid from "@/components/shows-grid";
 import VODCard from "@/components/vod-card";
 import VideoPlayer from "@/components/video-player";
 import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs, formatDuration } from "@/lib/data";
+import { fetchVODs, formatDuration, categoriesToShows } from "@/lib/data";
 
 interface WatchPageProps {
   params: Promise<{ id: string }>;
@@ -44,7 +44,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}

@@ -117,7 +117,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
           muted={muted}
           playsInline
           poster={poster}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain bg-black"
         />
       ) : (
         <Image

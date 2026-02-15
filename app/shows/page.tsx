@@ -2,14 +2,14 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import VODCard from "@/components/vod-card";
 import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs } from "@/lib/data";
+import { fetchVODs, categoriesToShows } from "@/lib/data";
 
 export default async function ShowsPage() {
   const categories = await fetchVODs();
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}
