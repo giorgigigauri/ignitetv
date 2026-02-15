@@ -1,10 +1,6 @@
 import React from "react"
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
-
 import "./globals.css";
-
-const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Ignite Television",
@@ -23,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className={`${_inter.variable} font-sans antialiased min-h-screen`}>
+      <body suppressHydrationWarning className="antialiased min-h-screen">
         {children}
       </body>
     </html>
