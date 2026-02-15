@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -73,11 +74,13 @@ export default function Header({ shows = [] }: HeaderProps) {
         href="/"
         className="flex-shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-xs leading-tight text-center">
-            Ignite
-          </span>
-        </div>
+        <Image
+          src="/ignitetelevision-logo.png"
+          alt="Ignite Television"
+          width={48}
+          height={48}
+          className="rounded-full"
+        />
       </Link>
 
       {/* Desktop Navigation */}
