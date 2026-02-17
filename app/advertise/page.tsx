@@ -15,34 +15,31 @@ export default async function AdvertisePage() {
         </h1>
 
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
-          <p>
-            Reach a growing and engaged audience by advertising with Ignite Television. Whether you are a local business or an international brand, we offer flexible advertising solutions tailored to your needs.
+          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+            Our Solution
+          </h2>
+          <p className="font-semibold">
+            Here is how we can help you grow your brand...
           </p>
           <p>
-            Our platform provides opportunities across live streaming, on-demand content, and digital placements — giving your brand maximum visibility and impact.
+            Boost your brand with our tailored marketing packages! At Ignite Television, we offer solutions designed to amplify your reach and connect with your audience. Explore our packages and let us help your business grow.
+          </p>
+          <p>
+            We leverage cutting-edge strategies and tools to create content that not only grabs attention but also builds trust and loyalty. From social media campaigns to blog posts and beyond, we tailor our approach to meet your specific goals, ensuring that every piece of content reflects your brand&apos;s identity and values.
           </p>
 
           <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
-            Why Advertise With Us?
-          </h2>
-          <ul className="list-disc list-inside space-y-2 text-foreground">
-            <li>Access to a diverse and loyal viewer base</li>
-            <li>Multiple ad formats including pre-roll, mid-roll, and banner placements</li>
-            <li>Targeted reach across news, entertainment, and documentary content</li>
-            <li>Competitive pricing with flexible packages</li>
-          </ul>
-
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
-            Get In Touch
+            Contact Us
           </h2>
           <p>
-            For advertising inquiries, please contact us at{" "}
+            For advertising inquiries, please{" "}
             <a
-              href="mailto:advertise@ignitetv.com"
+              href="https://ignitenews.com/contact/"
               className="text-primary hover:underline focus-visible:underline focus-visible:outline-none"
             >
-              advertise@ignitetv.com
+              contact us
             </a>
+            .
           </p>
         </div>
       </main>
