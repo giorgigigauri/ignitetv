@@ -34,7 +34,7 @@ export default function Footer() {
                     src="/ignitetelevision-logo.png"
                     alt="Ignite Television"
                     width={116}
-                    height={116}
+                    height={52}
                 />
               </div>
             </Link>

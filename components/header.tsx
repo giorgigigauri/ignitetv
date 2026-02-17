@@ -78,7 +78,7 @@ export default function Header({ shows = [] }: HeaderProps) {
             src="/ignitetelevision-logo.png"
             alt="Ignite Television"
             width={56}
-            height={56}
+            height={25}
           />
       </Link>
 
