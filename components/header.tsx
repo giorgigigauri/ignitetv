@@ -68,7 +68,7 @@ export default function Header({ shows = [] }: HeaderProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 md:px-8 bg-background border-b border-primary/30">
+    <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-1.5 md:px-8 bg-background border-b border-primary/30">
       {/* Logo */}
       <Link
         href="/"
@@ -77,8 +77,8 @@ export default function Header({ shows = [] }: HeaderProps) {
           <Image
             src="/ignitetelevision-logo.png"
             alt="Ignite Television"
-            width={80}
-            height={36}
+            width={100}
+            height={45}
           />
       </Link>
 
