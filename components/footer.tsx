@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Facebook, Linkedin, Youtube } from "lucide-react";
+import Image from "next/image";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -29,14 +30,12 @@ export default function Footer() {
               className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-[10px] leading-tight text-center">
-                    Ignite
-                  </span>
-                </div>
-                <span className="text-foreground font-bold text-lg tracking-wide uppercase">
-                  Television
-                </span>
+                <Image
+                    src="/ignitetelevision-logo.png"
+                    alt="Ignite Television"
+                    width={116}
+                    height={116}
+                />
               </div>
             </Link>
           </div>
@@ -61,41 +60,39 @@ export default function Footer() {
             >
               FAQ
             </Link>
-            <div className="flex flex-col border border-primary/40 px-6 py-1 hover:border-primary transition-colors">
-              <Link href="/career" className={navLinkClass}>
-                Career
-              </Link>
-              <Link href="/about" className={navLinkClass}>
-                About
-              </Link>
-            </div>
+            <Link href="/about" className={`${navLinkClass} border border-primary/40 px-6 py-2 hover:border-primary focus-visible:border-primary`}>
+              About
+            </Link>
           </nav>
 
           {/* Social Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/ignitetelevision/"
+              target={"_blank"}
               className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1 transition-colors"
               aria-label="Facebook"
             >
               <Facebook className="w-5 h-5" />
             </a>
+            {/*<a*/}
+            {/*  href="#"*/}
+            {/*  className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1 transition-colors"*/}
+            {/*  aria-label="X (Twitter)"*/}
+            {/*>*/}
+            {/*  <XIcon className="w-5 h-5" />*/}
+            {/*</a>*/}
             <a
-              href="#"
-              className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1 transition-colors"
-              aria-label="X (Twitter)"
-            >
-              <XIcon className="w-5 h-5" />
-            </a>
-            <a
-              href="#"
+              href="https://www.linkedin.com/company/ignitetv"
+              target={"_blank"}
               className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/@ignitetv"
+              target={"_blank"}
               className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1 transition-colors"
               aria-label="YouTube"
             >
