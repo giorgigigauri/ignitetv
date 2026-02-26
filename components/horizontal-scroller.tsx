@@ -52,6 +52,11 @@ export default function HorizontalScroller({
         {children}
       </div>
 
+      {/* Left fade */}
+      <div className="absolute left-0 top-0 bottom-2 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
+      {/* Right fade */}
+      <div className="absolute right-0 top-0 bottom-2 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
+
       {/* Left arrow */}
       <button
         type="button"
