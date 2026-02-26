@@ -23,7 +23,7 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
   const isIgniteNews = category.title.toLowerCase().includes("ignite news");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">

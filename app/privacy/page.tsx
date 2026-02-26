@@ -6,7 +6,7 @@ export default async function PrivacyPage() {
   const categories = await fetchVODs();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-3xl mx-auto px-4 md:px-8 py-10">

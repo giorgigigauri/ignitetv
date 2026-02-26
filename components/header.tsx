@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 export default function Header({ shows = [] }: HeaderProps) {
   const showsList = shows;
+  const pathname = usePathname();
   const [showsOpen, setShowsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -67,8 +69,18 @@ export default function Header({ shows = [] }: HeaderProps) {
     }, 150);
   }, []);
 
+  const navLinkClass = (href: string) => {
+    const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+    return isActive
+      ? "border border-white/50 rounded-full px-3 py-0.5 text-foreground text-sm transition-colors hover:border-white/80"
+      : "text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 transition-colors text-sm";
+  };
+
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-1.5 md:px-8 bg-background border-b border-primary/30">
+    <header
+      className="sticky top-0 z-50 flex items-center justify-between px-4 pt-8 pb-4 md:px-8 border-b border-primary/40"
+      style={{ background: "linear-gradient(to right, #0a0808 0%, #1c0e04 40%, #150b03 70%, #0a0808 100%)" }}
+    >
       {/* Logo */}
       <Link
         href="/"
@@ -84,16 +96,10 @@ export default function Header({ shows = [] }: HeaderProps) {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Main navigation">
-        <Link
-          href="/"
-          className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 transition-colors text-sm"
-        >
+        <Link href="/" className={navLinkClass("/")}>
           Home
         </Link>
-        <Link
-          href="/news"
-          className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 transition-colors text-sm"
-        >
+        <Link href="/news" className={navLinkClass("/news")}>
           News
         </Link>
 
@@ -143,16 +149,10 @@ export default function Header({ shows = [] }: HeaderProps) {
           </div>
         </div>
 
-        <Link
-          href="/about"
-          className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 transition-colors text-sm"
-        >
+        <Link href="/about" className={navLinkClass("/about")}>
           About Us
         </Link>
-        <Link
-          href="/advertise"
-          className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 transition-colors text-sm"
-        >
+        <Link href="/advertise" className={navLinkClass("/advertise")}>
           Advertise
         </Link>
       </nav>

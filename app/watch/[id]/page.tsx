@@ -43,7 +43,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-7xl mx-auto">

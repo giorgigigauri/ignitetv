@@ -50,7 +50,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: linear-gradient(to right, #0a0808 0%, #1c0e04 40%, #150b03 70%, #0a0808 100%);
+    background-attachment: fixed;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 }
