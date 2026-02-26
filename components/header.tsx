@@ -78,8 +78,8 @@ export default function Header({ shows = [] }: HeaderProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 flex items-center justify-between px-4 pt-8 pb-4 md:px-8 border-b border-primary/40"
-      style={{ background: "linear-gradient(to right, #0a0808 0%, #1c0e04 40%, #150b03 70%, #0a0808 100%)" }}
+      className="sticky top-0 z-50 flex items-center justify-between px-4 pt-8 pb-4 md:px-8 border-b"
+      style={{ background: "linear-gradient(to right, #0a0808 0%, #1c0e04 40%, #150b03 70%, #0a0808 100%)", borderColor: "rgba(126, 90, 60, 0.5)" }}
     >
       {/* Logo */}
       <Link

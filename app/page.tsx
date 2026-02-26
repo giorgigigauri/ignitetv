@@ -17,10 +17,8 @@ export default async function HomePage() {
 
       <main className="max-w-7xl mx-auto">
         <PlayerWithCatchUp
-          liveStream={dvr.stream}
-          liveTitle={dvr.title}
-          dvrItems={dvr.dvr}
-        />
+            liveStream={dvr.stream}
+            dvrItems={dvr.dvr} liveTitle={""}        />
 
         {/* Shows Section */}
         <ShowsGrid categories={categories} />
