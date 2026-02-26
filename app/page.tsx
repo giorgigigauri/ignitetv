@@ -22,10 +22,10 @@ export default async function HomePage() {
 
         {/* Shows Section */}
         <ShowsGrid categories={categories} />
-
-        {/* Ignite News Section */}
-        {igniteNews && <NewsSection category={igniteNews} />}
       </main>
+
+      {/* Ignite News Section - full width */}
+      {igniteNews && <NewsSection category={igniteNews} />}
 
       <Footer />
     </div>

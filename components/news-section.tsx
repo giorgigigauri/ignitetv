@@ -10,7 +10,8 @@ export default function NewsSection({ category }: NewsSectionProps) {
   if (!category || category.series.length === 0) return null;
 
   return (
-    <section className="px-4 md:px-8 py-6">
+    <section className="bg-background w-full">
+      <div className="px-4 md:px-8 pt-6 pb-12">
       <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 font-serif italic">
         {category.title}
       </h2>
@@ -19,6 +20,7 @@ export default function NewsSection({ category }: NewsSectionProps) {
           <VODCard key={item.id} item={item} orientation="landscape" />
         ))}
       </HorizontalScroller>
+      </div>
     </section>
   );
 }
