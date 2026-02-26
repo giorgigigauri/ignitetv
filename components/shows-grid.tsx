@@ -9,18 +9,14 @@ interface ShowsGridProps {
 export default function ShowsGrid({ categories }: ShowsGridProps) {
   return (
     <section className="px-4 md:px-8 py-8">
-      {/* Divider with label */}
-      <div className="flex items-center justify-center mb-4">
-        <div className="border-t border-primary/50 flex-1" />
-        <span className="px-4 text-sm font-semibold text-foreground bg-card border border-primary/50 rounded-sm py-1">
+      {/* Section heading */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="flex-1 h-px bg-primary/60" />
+        <h2 className="text-base md:text-lg font-bold text-primary uppercase tracking-[0.3em] whitespace-nowrap">
           Ignite on Demand Videos
-        </span>
-        <div className="border-t border-primary/50 flex-1" />
+        </h2>
+        <div className="flex-1 h-px bg-primary/60" />
       </div>
-
-      <h2 className="text-2xl font-bold text-primary uppercase tracking-wider mb-6 font-serif italic">
-        SHOWS
-      </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
         {categories.map((cat) => (
