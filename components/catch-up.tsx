@@ -28,9 +28,9 @@ export default function CatchUp({ items, onSelect }: CatchUpProps) {
   if (items.length === 0) return null;
 
   return (
-    <section className="px-4 md:px-8 py-8">
-      <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 font-serif italic">
-        Catch-Up
+    <section className="px-4 md:px-8 py-16">
+      <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4 font-serif italic">
+          Hourly Program
       </h2>
       <HorizontalScroller>
         {items.map((item) => (
