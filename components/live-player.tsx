@@ -158,7 +158,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
               <span className="text-red-400 font-bold text-sm tracking-wider">LIVE</span>
             </span>
           )}
-          <span className="text-primary font-bold text-sm tracking-wider">{title || "IGNITE"}</span>
+          <span className="text-primary font-bold text-sm tracking-wider">{title || "IgniteTV"}</span>
         </div>
       </div>
 
@@ -182,7 +182,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
         </button>
         <div className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <span className="text-xs font-semibold text-red-400">LIVE</span>
+          <span className="text-xs font-semibold text-red-400">LIVE IgniteTV</span>
         </div>
         <div className="flex-1" />
         <button

@@ -20,21 +20,26 @@ export default async function ShowsPage() {
         </div>
 
         {/* Each show as a carousel */}
-        {categories.map(
-          (cat) =>
-            cat.series.length > 0 && (
-              <section key={cat.id} className="px-4 md:px-8 py-6">
-                <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 font-serif italic">
-                  {cat.title}
-                </h2>
-                <HorizontalScroller>
-                  {cat.series.map((item) => (
-                    <VODCard key={item.id} item={item} orientation="landscape" />
-                  ))}
-                </HorizontalScroller>
-              </section>
-            ),
-        )}
+        {categories.map((cat) => {
+          if (!cat.series.length) return null;
+          const isIgniteNews = cat.title.toLowerCase().includes("ignite news");
+          return (
+            <section key={cat.id} className="px-4 md:px-8 py-6">
+              <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 font-serif italic">
+                {cat.title}
+              </h2>
+              <HorizontalScroller>
+                {cat.series.map((item) => (
+                  <VODCard
+                    key={item.id}
+                    item={item}
+                    orientation={isIgniteNews ? "landscape" : "portrait"}
+                  />
+                ))}
+              </HorizontalScroller>
+            </section>
+          );
+        })}
       </main>
 
       <Footer />
