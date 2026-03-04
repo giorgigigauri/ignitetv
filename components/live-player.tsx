@@ -151,7 +151,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
 
       {/* Title Badge */}
       <div className="absolute top-4 right-4 z-10">
-        <div className="bg-background/60 backdrop-blur-sm px-3 py-1 rounded-sm border border-primary/30 flex items-center gap-2">
+        <div className="bg-background/60 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/30 flex items-center gap-2">
           {isLive && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -180,7 +180,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
             <Play className="w-5 h-5" />
           )}
         </button>
-        <div className="flex items-center gap-1.5 border border-red-500/50 rounded-full px-2 py-0.5">
+        <div className="flex items-center gap-1.5 px-2 py-0.5" style={{ border: '1px solid rgba(239,68,68,0.5)', borderRadius: '9999px' }}>
           <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           <span className="text-xs font-semibold text-red-400">LIVE IgniteTV</span>
         </div>
