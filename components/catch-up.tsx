@@ -41,7 +41,7 @@ export default function CatchUp({ items, onSelect, selectedId }: CatchUpProps) {
             key={item.id}
             type="button"
             onClick={() => onSelect?.(item)}
-            className="flex-shrink-0 group rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-300"
+            className={`flex-shrink-0 group rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-300 ${isActive ? "pt-0.5" : ""}`}
             style={{ width: isActive ? "220px" : "160px" }}
           >
             <div className={`relative aspect-video overflow-hidden rounded-sm bg-muted ${isActive ? "ring-2 ring-primary" : ""}`}>

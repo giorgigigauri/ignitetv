@@ -47,7 +47,7 @@ export default function HorizontalScroller({
     <div className="relative">
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 px-10"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pt-0.5 pb-2 px-10"
       >
         {children}
       </div>
