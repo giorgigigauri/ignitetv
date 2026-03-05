@@ -9,6 +9,7 @@ import HorizontalScroller from "./horizontal-scroller";
 interface CatchUpProps {
   items: DVRItem[];
   onSelect?: (item: DVRItem) => void;
+  selectedId?: string;
 }
 
 function formatTime(iso: string): string {
@@ -24,7 +25,7 @@ function formatTime(iso: string): string {
   return `${h}:${m.toString().padStart(2, "0")} ${ampm}`;
 }
 
-export default function CatchUp({ items, onSelect }: CatchUpProps) {
+export default function CatchUp({ items, onSelect, selectedId }: CatchUpProps) {
   if (items.length === 0) return null;
 
   return (
@@ -33,15 +34,17 @@ export default function CatchUp({ items, onSelect }: CatchUpProps) {
           Hourly Program
       </h2>
       <HorizontalScroller>
-        {items.map((item) => (
+        {items.map((item) => {
+          const isActive = item.id === selectedId;
+          return (
           <button
             key={item.id}
             type="button"
             onClick={() => onSelect?.(item)}
-            className="flex-shrink-0 group rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            style={{ width: "160px" }}
+            className="flex-shrink-0 group rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-300"
+            style={{ width: isActive ? "220px" : "160px" }}
           >
-            <div className="relative aspect-video overflow-hidden rounded-sm bg-muted">
+            <div className={`relative aspect-video overflow-hidden rounded-sm bg-muted ${isActive ? "ring-2 ring-primary" : ""}`}>
               {item.thumb && (
                 <Image
                   src={item.thumb}
@@ -65,7 +68,8 @@ export default function CatchUp({ items, onSelect }: CatchUpProps) {
               {formatTime(item.starttime)}-{formatTime(item.endtime)} (EST)
             </p>
           </button>
-        ))}
+          );
+        })}
       </HorizontalScroller>
     </section>
   );

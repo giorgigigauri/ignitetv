@@ -21,6 +21,7 @@ export default function PlayerWithCatchUp({
   const [thumb, setThumb] = useState<string | undefined>(undefined);
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
   const [isLive, setIsLive] = useState(true);
+  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
 
   function handleSelectDVR(item: DVRItem) {
     setStreamUrl(item.stream.replace('.ts.m3u8', '.m3u8'));
@@ -28,6 +29,7 @@ export default function PlayerWithCatchUp({
     setThumb(item.thumb);
     setDownloadUrl(item.downloadurl);
     setIsLive(false);
+    setSelectedId(item.id);
   }
 
   return (
@@ -45,7 +47,7 @@ export default function PlayerWithCatchUp({
       </div>
 
       {/* Catch-Up Section */}
-      <CatchUp items={dvrItems} onSelect={handleSelectDVR} />
+      <CatchUp items={dvrItems} onSelect={handleSelectDVR} selectedId={selectedId} />
     </>
   );
 }
