@@ -150,7 +150,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
       )}
 
       {/* Title Badge */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 left-4 z-10">
         <div className="bg-background/60 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/30 flex items-center gap-2">
           {isLive && (
             <span className="flex items-center gap-1">

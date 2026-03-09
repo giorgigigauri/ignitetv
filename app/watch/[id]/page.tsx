@@ -61,7 +61,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
 
         {/* Article Title */}
         <div className="px-4 md:px-8 pt-4">
-          <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight text-balance">
+          <h2 className="text-xl md:text-2xl font-bold text-primary leading-tight text-balance">
             {cleanTitle}
           </h2>
         </div>
