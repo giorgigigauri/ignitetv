@@ -42,6 +42,8 @@ export default async function WatchPage({ params }: WatchPageProps) {
     (s) => s.id !== foundVideo.id,
   );
 
+  const isIgniteNews = parentCategory.title.toLowerCase().includes("ignite news");
+
   return (
     <div className="min-h-screen">
       <Header shows={categoriesToShows(categories)} />
@@ -70,7 +72,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
         <div className="px-4 md:px-8 py-6 flex flex-col md:flex-row gap-6">
           {/* Thumbnail */}
           <div className="flex-shrink-0 w-full md:w-48">
-            <div className="relative aspect-[4/3] md:aspect-square overflow-hidden rounded-sm bg-muted">
+            <div className={`relative overflow-hidden rounded-sm bg-muted ${isIgniteNews ? "aspect-video" : "aspect-[3/4]"}`}>
               <Image
                 src={foundVideo.imageUrl || "/placeholder.svg"}
                 alt={cleanTitle}
