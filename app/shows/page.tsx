@@ -14,7 +14,7 @@ export default async function ShowsPage() {
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}
         <div className="px-4 md:px-8 pt-2 pb-2">
-          <h1 className="text-lg font-bold text-primary font-serif italic">
+          <h1 className="text-lg font-bold text-primary ">
             Shows
           </h1>
         </div>
@@ -25,7 +25,7 @@ export default async function ShowsPage() {
           const isIgniteNews = cat.title.toLowerCase().includes("ignite news");
           return (
             <section key={cat.id} className="px-4 md:px-8 py-6">
-              <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 font-serif italic">
+              <h2 className="text-xl font-bold text-primary uppercase tracking-wider mb-4 ">
                 {cat.title}
               </h2>
               <HorizontalScroller>

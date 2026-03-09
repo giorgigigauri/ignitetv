@@ -30,7 +30,7 @@ export default function CatchUp({ items, onSelect, selectedId }: CatchUpProps) {
 
   return (
     <section className="px-4 md:px-8 py-16">
-      <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4 font-serif italic">
+      <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4 ">
           Hourly Program
       </h2>
       <HorizontalScroller>

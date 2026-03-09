@@ -180,10 +180,10 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
             <Play className="w-5 h-5" />
           )}
         </button>
-        <div className="flex items-center gap-1.5 px-2 py-0.5" style={{ border: '1px solid rgba(239,68,68,0.5)', borderRadius: '9999px' }}>
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <span className="text-xs font-semibold text-red-400">LIVE IgniteTV</span>
-        </div>
+        {/*<div className="flex items-center gap-1.5 px-2 py-0.5" style={{ border: '1px solid rgba(239,68,68,0.5)', borderRadius: '9999px' }}>*/}
+        {/*  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />*/}
+        {/*  <span className="text-xs font-semibold text-red-400">LIVE IgniteTV</span>*/}
+        {/*</div>*/}
         <div className="flex-1" />
         <button
           type="button"

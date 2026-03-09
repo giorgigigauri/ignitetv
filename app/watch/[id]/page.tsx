@@ -49,7 +49,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
       <main className="max-w-7xl mx-auto">
         {/* Page Title */}
         <div className="px-4 md:px-8 pt-2 pb-2">
-          <h1 className="text-lg font-bold text-primary font-serif italic">
+          <h1 className="text-lg font-bold text-primary ">
             {parentCategory.title}
           </h1>
         </div>
@@ -119,7 +119,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
         {/* Related Videos */}
         {relatedItems.length > 0 && (
           <section className="px-4 md:px-8 py-6">
-            <h3 className="text-lg font-bold text-primary font-serif italic mb-4">
+            <h3 className="text-lg font-bold text-primary  mb-4">
               More from {parentCategory.title}
             </h3>
             <HorizontalScroller>

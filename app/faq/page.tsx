@@ -10,7 +10,7 @@ export default async function FAQPage() {
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-3xl mx-auto px-4 md:px-8 py-10">
-        <h1 className="text-2xl font-bold text-primary font-serif italic mb-6">
+        <h1 className="text-2xl font-bold text-primary  mb-6">
           Frequently Asked Questions
         </h1>
 

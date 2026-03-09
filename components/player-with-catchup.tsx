@@ -36,7 +36,7 @@ export default function PlayerWithCatchUp({
     <>
       {/* Page Title */}
       <div className="px-4 md:px-8 pt-2 pb-2">
-        <h1 className="text-lg font-bold text-primary font-serif italic">
+        <h1 className="text-lg font-bold text-primary ">
           {liveTitle}
         </h1>
       </div>

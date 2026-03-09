@@ -10,7 +10,7 @@ export default async function AboutPage() {
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-3xl mx-auto px-4 md:px-8 py-10">
-        <h1 className="text-2xl font-bold text-primary font-serif italic mb-6">
+        <h1 className="text-2xl font-bold text-primary  mb-6">
           About Us
         </h1>
 
@@ -19,14 +19,14 @@ export default async function AboutPage() {
             Ignite Television is a full-service broadcast and digital media network based in Guyana, delivering 24-hour programming that informs, entertains, and inspires. We are built on the vision of redefining local television by merging traditional broadcasting with the innovation of modern streaming platforms. We aim to Reinvent Television in Guyana.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             Who We Are
           </h2>
           <p>
             Ignite Television is more than a channel—it&apos;s a dynamic hub for news, entertainment, culture, and conversation. Our sets include Ignite News, Ignite Insights, Ignite Health, and multiple podcast and talk-show spaces. Each production is designed to reflect the voices and experiences of Guyanese people, while connecting audiences to the wider Caribbean and the world.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             What We Do
           </h2>
           <p>
@@ -36,7 +36,7 @@ export default async function AboutPage() {
             Our programming is supported by state-of-the-art studios, high-quality production teams, and a commitment to journalistic integrity and creating a platform for Guyanese to showcase the local talent.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             Why We Stand Out
           </h2>
           <ul className="list-disc list-inside space-y-2">
@@ -46,7 +46,7 @@ export default async function AboutPage() {
             <li><span className="font-semibold">Community-Driven</span> with content shaped by the issues, events, and stories that define Guyana today.</li>
           </ul>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             Our Promise
           </h2>
           <p>

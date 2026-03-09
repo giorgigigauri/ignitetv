@@ -10,7 +10,7 @@ export default async function PrivacyPage() {
       <Header shows={categoriesToShows(categories)} />
 
       <main className="max-w-3xl mx-auto px-4 md:px-8 py-10">
-        <h1 className="text-2xl font-bold text-primary font-serif italic mb-6">
+        <h1 className="text-2xl font-bold text-primary  mb-6">
           Privacy Policy
         </h1>
 
@@ -28,21 +28,21 @@ export default async function PrivacyPage() {
             We do not phish, harm or participate in any illicit or identity theft activities.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             Security
           </h2>
           <p>
             We always use industry-standard encryption technologies when transferring and receiving consumer data exchanged with our site. We have appropriate security measures in place in our physical facilities to protect against the loss, misuse or alteration of information that we have collected from you at our site.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             What We Track and Don&apos;t Track
           </h2>
           <p>
             We collect aggregate information on what pages are accessed and visited by consumers.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             How We Use Contact Information
           </h2>
           <p>
@@ -52,7 +52,7 @@ export default async function PrivacyPage() {
             If you do not want to receive e-mail from us in the future, please let us know by sending us an e-mail at the above address. We use cookies to record session information, such as items that consumers add to their shopping cart. Persons who supply us with their telephone numbers on-line will only receive telephone calls from us with information regarding orders or questions they have submitted on-line.
           </p>
 
-          <h2 className="text-lg font-bold text-primary font-serif italic pt-4">
+          <h2 className="text-lg font-bold text-primary  pt-4">
             Updates to Privacy Policy
           </h2>
           <p>
