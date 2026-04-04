@@ -123,7 +123,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
             </h3>
             <HorizontalScroller>
               {relatedItems.map((item) => (
-                <VODCard key={item.id} item={item} orientation="landscape" />
+                <VODCard key={item.id} item={item} orientation={isIgniteNews ? "landscape" : "portrait"} />
               ))}
             </HorizontalScroller>
           </section>
