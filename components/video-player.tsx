@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Hls from "hls.js";
 import {
   Play,
@@ -134,14 +133,7 @@ export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : (
-        <Image
-          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&h=675&fit=crop"
-          alt="Video thumbnail"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
+        <div className="absolute inset-0 bg-card" />
       )}
 
       {/* Loading Spinner */}

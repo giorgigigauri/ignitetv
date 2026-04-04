@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import Image from "next/image";
+
 import Hls from "hls.js";
 import {
   Play,
@@ -120,14 +120,7 @@ export default function LivePlayer({ streamUrl, title, isLive = true, poster, do
           className="absolute inset-0 w-full h-full object-contain bg-black"
         />
       ) : (
-        <Image
-          src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&h=675&fit=crop"
-          alt="Live stream broadcast"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
+        <div className="absolute inset-0 bg-card" />
       )}
 
       {/* Loading Spinner */}

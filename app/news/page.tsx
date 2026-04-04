@@ -38,7 +38,7 @@ export default async function NewsPage() {
 
         {/* Video Player */}
         <div className="px-4 md:px-8">
-          <VideoPlayer />
+          <VideoPlayer src={featured?.video} poster={featured?.imageUrl} />
         </div>
 
         {featured && (
