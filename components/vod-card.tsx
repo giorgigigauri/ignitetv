@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { VODSeries } from "@/lib/data";
 import { formatDuration } from "@/lib/data";
@@ -30,12 +29,10 @@ export default function VODCard({
           isLandscape ? "aspect-video" : "aspect-[3/4]"
         }`}
       >
-        <Image
+        <img
           src={item.imageUrl || "/placeholder.svg"}
           alt={cleanTitle}
-          fill
-          className="object-cover group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300"
-          sizes={isLandscape ? "180px" : "150px"}
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300"
         />
         <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 group-focus-visible:bg-primary/10 transition-colors duration-300" />
         {item.duration > 0 && (

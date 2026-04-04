@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -6,7 +5,7 @@ import ShowsGrid from "@/components/shows-grid";
 import VideoPlayer from "@/components/video-player";
 import VODCard from "@/components/vod-card";
 import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs, formatDuration, categoriesToShows } from "@/lib/data";
+import { fetchVODs, formatDuration, categoriesToShows, sortByDateDesc } from "@/lib/data";
 
 export default async function NewsPage() {
   const categories = await fetchVODs();
@@ -14,9 +13,10 @@ export default async function NewsPage() {
     c.title.toLowerCase().includes("ignite news"),
   );
 
-  // Get the featured (first) video from Ignite News
-  const featured = igniteNews?.series[0];
-  const relatedItems = igniteNews?.series.slice(1) ?? [];
+  // Sort by date (newest first), then pick featured + rest
+  const sortedSeries = igniteNews ? sortByDateDesc(igniteNews.series) : [];
+  const featured = sortedSeries[0];
+  const relatedItems = sortedSeries.slice(1);
 
   const cleanTitle = featured
     ? featured.title
@@ -55,12 +55,10 @@ export default async function NewsPage() {
               {/* Thumbnail */}
               <div className="flex-shrink-0 w-full md:w-48">
                 <div className="relative aspect-video overflow-hidden rounded-sm bg-muted">
-                  <Image
+                  <img
                     src={featured.imageUrl || "/placeholder.svg"}
                     alt={cleanTitle}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 200px"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
               </div>

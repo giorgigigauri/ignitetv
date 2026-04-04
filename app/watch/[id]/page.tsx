@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/header";
@@ -73,12 +72,10 @@ export default async function WatchPage({ params }: WatchPageProps) {
           {/* Thumbnail */}
           <div className="flex-shrink-0 w-full md:w-48">
             <div className={`relative overflow-hidden rounded-sm bg-muted ${isIgniteNews ? "aspect-video" : "aspect-[3/4]"}`}>
-              <Image
+              <img
                 src={foundVideo.imageUrl || "/placeholder.svg"}
                 alt={cleanTitle}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 200px"
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
           </div>

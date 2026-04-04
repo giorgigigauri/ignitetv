@@ -65,6 +65,32 @@ export function categoriesToShows(categories: VODCategory[]) {
   }));
 }
 
+const MONTHS: Record<string, number> = {
+  January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+  July: 6, August: 7, September: 8, October: 9, November: 10, December: 11,
+};
+
+export function parseDateFromTitle(title: string): Date {
+  const match = title.match(
+    /([A-Z][a-z]+?)(\d{1,2}),?\s*(\d{4})/,
+  );
+  if (match) {
+    const monthNum = MONTHS[match[1]];
+    if (monthNum !== undefined) {
+      return new Date(Number(match[3]), monthNum, Number(match[2]));
+    }
+  }
+  return new Date(0);
+}
+
+export function sortByDateDesc(series: VODSeries[]): VODSeries[] {
+  return [...series].sort(
+    (a, b) =>
+      parseDateFromTitle(b.title).getTime() -
+      parseDateFromTitle(a.title).getTime(),
+  );
+}
+
 export function formatDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
