@@ -130,7 +130,7 @@ export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
           ref={videoRef}
           poster={poster}
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain bg-black"
         />
       ) : (
         <div className="absolute inset-0 bg-card" />
