@@ -71,11 +71,11 @@ export default async function WatchPage({ params }: WatchPageProps) {
         <div className="px-4 md:px-8 py-6 flex flex-col md:flex-row gap-6">
           {/* Thumbnail */}
           <div className="flex-shrink-0 w-full md:w-48">
-            <div className={`relative overflow-hidden rounded-sm bg-muted ${isIgniteNews ? "aspect-video" : "aspect-[3/4]"}`}>
+            <div className={`relative overflow-hidden rounded-sm bg-black ${isIgniteNews ? "aspect-video" : "aspect-[3/4]"}`}>
               <img
                 src={foundVideo.imageUrl || "/placeholder.svg"}
                 alt={cleanTitle}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
           </div>
