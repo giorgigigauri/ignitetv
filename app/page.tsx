@@ -21,6 +21,7 @@ export default async function HomePage() {
         <Banner
           src="/top-banner.jpg"
           alt="International Building Expo 2026"
+          href="https://buildingexpo.gy/"
           width={1200}
           height={131}
           className="py-4"
@@ -41,6 +42,7 @@ export default async function HomePage() {
       <Banner
         src="/bottom-banner.jpg"
         alt="International Building Expo 2026"
+        href="https://buildingexpo.gy/"
         width={900}
         height={350}
         className="max-w-[932px] mx-auto py-6"
