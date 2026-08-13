@@ -4,10 +4,14 @@ import Banner from "@/components/banner";
 import PlayerWithCatchUp from "@/components/player-with-catchup";
 import ShowsGrid from "@/components/shows-grid";
 import NewsSection from "@/components/news-section";
-import { fetchVODs, fetchDVR, categoriesToShows } from "@/lib/data";
+import { fetchVODs, fetchDVR, fetchBanners, categoriesToShows } from "@/lib/data";
 
 export default async function HomePage() {
-  const [categories, dvr] = await Promise.all([fetchVODs(), fetchDVR()]);
+  const [categories, dvr, banners] = await Promise.all([
+    fetchVODs(),
+    fetchDVR(),
+    fetchBanners(),
+  ]);
   const igniteNews = categories.find((c) =>
     c.title.toLowerCase().includes("ignite news"),
   );
@@ -18,14 +22,16 @@ export default async function HomePage() {
 
       <main className="max-w-7xl mx-auto">
         {/* Top banner - above player */}
-        <Banner
-          src="/top-banner.jpg"
-          alt="International Building Expo 2026"
-          href="https://buildingexpo.gy/"
-          width={1200}
-          height={131}
-          className="py-4"
-        />
+        {banners?.top?.image && (
+          <Banner
+            src={banners.top.image}
+            alt="Advertisement"
+            href={banners.top.link || undefined}
+            width={1200}
+            height={131}
+            className="py-4"
+          />
+        )}
 
         <PlayerWithCatchUp
             liveStream={dvr.stream}
@@ -39,14 +45,16 @@ export default async function HomePage() {
       {igniteNews && <NewsSection category={igniteNews} />}
 
       {/* Bottom banner - above footer */}
-      <Banner
-        src="/bottom-banner.jpg"
-        alt="International Building Expo 2026"
-        href="https://buildingexpo.gy/"
-        width={900}
-        height={350}
-        className="max-w-[932px] mx-auto py-6"
-      />
+      {banners?.bottom?.image && (
+        <Banner
+          src={banners.bottom.image}
+          alt="Advertisement"
+          href={banners.bottom.link || undefined}
+          width={900}
+          height={350}
+          className="max-w-[932px] mx-auto py-6"
+        />
+      )}
 
       <Footer />
     </div>

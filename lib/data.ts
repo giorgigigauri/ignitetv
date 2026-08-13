@@ -58,6 +58,30 @@ export async function fetchVODs(): Promise<VODCategory[]> {
   return res.json();
 }
 
+export interface BannerAd {
+  image: string;
+  link: string;
+}
+
+export interface BannerResponse {
+  top: BannerAd;
+  bottom: BannerAd;
+}
+
+export async function fetchBanners(): Promise<BannerResponse | null> {
+  try {
+    const res = await fetch("https://ignitetv.tulix.tv/api/getbanner.php", {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) {
+      return null;
+    }
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
 export function categoriesToShows(categories: VODCategory[]) {
   return categories.map((cat) => ({
     name: cat.title,
