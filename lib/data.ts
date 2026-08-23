@@ -169,6 +169,21 @@ export function parseDateFromTitle(title: string): Date {
   return new Date(0);
 }
 
+const MONTH_NAMES = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+/** rdate when present, else the date parsed from the episode title. */
+export function episodeDisplayDate(ep: VODSeries): string {
+  if (ep.rdate) return ep.rdate;
+  const d = parseDateFromTitle(ep.title);
+  if (d.getTime() > 0) {
+    return `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  }
+  return "";
+}
+
 export function sortByDateDesc(series: VODSeries[]): VODSeries[] {
   return [...series].sort(
     (a, b) =>

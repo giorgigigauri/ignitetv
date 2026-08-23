@@ -6,6 +6,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // From the Show posts are read from disk at runtime; make sure the
+  // content directory ships with the serverless/standalone build.
+  outputFileTracingIncludes: {
+    '/shows/[title]': ['./content/**/*'],
+  },
   async redirects() {
     return [
       // News lives on ignitenews.com; the on-site section was removed.

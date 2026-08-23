@@ -12,6 +12,8 @@ import {
   findCategoryBySlug,
   slugify,
 } from "@/lib/data";
+import { SHOW_CONFIG } from "@/lib/show-config";
+import { getShowPosts } from "@/lib/posts";
 
 interface ShowDetailPageProps {
   params: Promise<{ title: string }>;
@@ -50,6 +52,9 @@ export default async function ShowDetailPage({
   const otherShows = visibleCategories(categories).filter(
     (c) => c.id !== category.id,
   );
+  const slug = slugify(category.title);
+  const config = SHOW_CONFIG[slug];
+  const posts = getShowPosts(slug);
 
   return (
     <div className="min-h-screen">
@@ -60,6 +65,8 @@ export default async function ShowDetailPage({
           category={category}
           initialEpisodeId={ep}
           autoPlay={play === "1" || Boolean(ep)}
+          config={config}
+          posts={posts}
         />
 
         {/* More programs */}

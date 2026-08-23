@@ -15,9 +15,12 @@ import {
   visibleCategories,
   getFeaturedCategory,
   getLatestEpisodes,
+  findCategoryBySlug,
   cleanTitle,
+  episodeDisplayDate,
   slugify,
 } from "@/lib/data";
+import { FEATURED_SHOW_SLUG } from "@/lib/show-config";
 
 export default async function HomePage() {
   const [categories, dvr, banners] = await Promise.all([
@@ -26,7 +29,9 @@ export default async function HomePage() {
     fetchBanners(),
   ]);
   const shows = visibleCategories(categories);
-  const featured = getFeaturedCategory(shows);
+  const featured =
+    (FEATURED_SHOW_SLUG && findCategoryBySlug(shows, FEATURED_SHOW_SLUG)) ||
+    getFeaturedCategory(shows);
   const latest = getLatestEpisodes(shows, 12);
 
   return (
@@ -111,7 +116,7 @@ export default async function HomePage() {
                   title={cleanTitle(episode.title)}
                   image={episode.imageUrl}
                   duration={episode.duration}
-                  subtitle={`${category.title}${episode.rdate ? ` · ${episode.rdate}` : ""}`}
+                  subtitle={`${category.title}${episodeDisplayDate(episode) ? ` · ${episodeDisplayDate(episode)}` : ""}`}
                   href={`/shows/${slugify(category.title)}?ep=${encodeURIComponent(episode.id)}`}
                 />
               ))}
