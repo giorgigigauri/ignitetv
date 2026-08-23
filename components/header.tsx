@@ -66,11 +66,12 @@ export default function Header({ shows = [] }: HeaderProps) {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Main navigation">
+        <Link href="/live" className={`${navLinkClass("/live")} flex items-center gap-1.5`}>
+          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          Watch Live
+        </Link>
         <Link href="/" className={navLinkClass("/")}>
           Home
-        </Link>
-        <Link href="/news" className={navLinkClass("/news")}>
-          News
         </Link>
 
         <Link href="/shows" className={navLinkClass("/shows")}>
@@ -83,6 +84,14 @@ export default function Header({ shows = [] }: HeaderProps) {
         <Link href="/advertise" className={navLinkClass("/advertise")}>
           Advertise
         </Link>
+        <a
+          href="https://ignitenews.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors text-sm border border-white/20 hover:border-primary/60 rounded-full px-3 py-0.5"
+        >
+          Ignite News ↗
+        </a>
       </nav>
 
       {/* Mobile Menu Button */}
@@ -110,18 +119,19 @@ export default function Header({ shows = [] }: HeaderProps) {
       >
         <nav className="flex flex-col gap-3" role="navigation" aria-label="Mobile navigation">
           <Link
+            href="/live"
+            className="flex items-center gap-1.5 text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors text-sm py-1"
+            onClick={() => setMobileOpen(false)}
+          >
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Watch Live
+          </Link>
+          <Link
             href="/"
             className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors text-sm py-1"
             onClick={() => setMobileOpen(false)}
           >
             Home
-          </Link>
-          <Link
-            href="/news"
-            className="text-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors text-sm py-1"
-            onClick={() => setMobileOpen(false)}
-          >
-            News
           </Link>
           <Link
             href="/shows"
@@ -144,6 +154,15 @@ export default function Header({ shows = [] }: HeaderProps) {
           >
             Advertise
           </Link>
+          <a
+            href="https://ignitenews.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-primary focus-visible:text-primary focus-visible:outline-none transition-colors text-sm py-1"
+            onClick={() => setMobileOpen(false)}
+          >
+            Ignite News ↗
+          </a>
         </nav>
       </div>
     </header>

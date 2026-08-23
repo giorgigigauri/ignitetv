@@ -15,12 +15,21 @@ import {
 interface VideoPlayerProps {
   src?: string;
   poster?: string;
+  /** When true, playback starts as soon as the source loads. */
+  autoPlay?: boolean;
+  /** localStorage key for saving/restoring playback position (resume). */
+  storageKey?: string;
 }
 
-export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
+export default function VideoPlayer({ src, poster, autoPlay, storageKey }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef(autoPlay);
+  autoPlayRef.current = autoPlay;
+  const storageKeyRef = useRef(storageKey);
+  storageKeyRef.current = storageKey;
+  const lastSavedRef = useRef(0);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,8 +52,41 @@ export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
       if (video.duration) {
         setProgress((video.currentTime / video.duration) * 100);
       }
+      // Persist resume position every ~5s of playback
+      const key = storageKeyRef.current;
+      if (key && Math.abs(video.currentTime - lastSavedRef.current) > 5) {
+        lastSavedRef.current = video.currentTime;
+        try {
+          localStorage.setItem(key, String(Math.floor(video.currentTime)));
+        } catch {}
+      }
     };
     const onDurationChange = () => setDuration(video.duration || 0);
+    const onLoadedMetadata = () => {
+      const key = storageKeyRef.current;
+      if (key && video.duration) {
+        try {
+          const saved = Number(localStorage.getItem(key));
+          if (saved > 10 && saved < video.duration - 20) {
+            video.currentTime = saved;
+          }
+        } catch {}
+      }
+      if (autoPlayRef.current) {
+        setPlaying(true);
+        video.play().catch(() => {});
+      }
+    };
+    const onEnded = () => {
+      const key = storageKeyRef.current;
+      if (key) {
+        try {
+          localStorage.removeItem(key);
+        } catch {}
+      }
+    };
+    video.addEventListener("loadedmetadata", onLoadedMetadata);
+    video.addEventListener("ended", onEnded);
 
     video.addEventListener("playing", onPlaying);
     video.addEventListener("waiting", onWaiting);
@@ -66,6 +108,8 @@ export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
         video.removeEventListener("canplay", onCanPlay);
         video.removeEventListener("timeupdate", onTimeUpdate);
         video.removeEventListener("durationchange", onDurationChange);
+        video.removeEventListener("loadedmetadata", onLoadedMetadata);
+        video.removeEventListener("ended", onEnded);
       };
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = src;
@@ -77,6 +121,8 @@ export default function VideoPlayer({ src, poster }: VideoPlayerProps) {
       video.removeEventListener("canplay", onCanPlay);
       video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("durationchange", onDurationChange);
+      video.removeEventListener("loadedmetadata", onLoadedMetadata);
+      video.removeEventListener("ended", onEnded);
     };
   }, [src]);
 

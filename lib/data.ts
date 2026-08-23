@@ -85,8 +85,70 @@ export async function fetchBanners(): Promise<BannerResponse | null> {
 export function categoriesToShows(categories: VODCategory[]) {
   return categories.map((cat) => ({
     name: cat.title,
-    href: `/shows/${encodeURIComponent(cat.title)}`,
+    href: `/shows/${slugify(cat.title)}`,
   }));
+}
+
+export function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function findCategoryBySlug(
+  categories: VODCategory[],
+  slug: string,
+): VODCategory | undefined {
+  return categories.find((c) => slugify(c.title) === slug);
+}
+
+/** API titles have no spaces; add them back at capital-letter boundaries. */
+export function cleanTitle(title: string): string {
+  return title
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
+}
+
+/** News lives on ignitenews.com now; keep its VOD category out of listings. */
+export function visibleCategories(categories: VODCategory[]): VODCategory[] {
+  return categories.filter(
+    (c) => !c.title.toLowerCase().includes("ignite news"),
+  );
+}
+
+export interface LatestEpisode {
+  episode: VODSeries;
+  category: VODCategory;
+}
+
+export function getLatestEpisodes(
+  categories: VODCategory[],
+  limit: number,
+): LatestEpisode[] {
+  return categories
+    .flatMap((category) =>
+      category.series.map((episode) => ({ episode, category })),
+    )
+    .sort(
+      (a, b) =>
+        parseDateFromTitle(b.episode.title).getTime() -
+        parseDateFromTitle(a.episode.title).getTime(),
+    )
+    .slice(0, limit);
+}
+
+/** The show whose newest episode is most recent — powers the home hero. */
+export function getFeaturedCategory(
+  categories: VODCategory[],
+): VODCategory | undefined {
+  const withEpisodes = categories.filter((c) => c.series.length > 0);
+  if (!withEpisodes.length) return categories[0];
+  return withEpisodes.reduce((best, cat) => {
+    const newest = (c: VODCategory) =>
+      Math.max(...c.series.map((s) => parseDateFromTitle(s.title).getTime()));
+    return newest(cat) > newest(best) ? cat : best;
+  });
 }
 
 const MONTHS: Record<string, number> = {

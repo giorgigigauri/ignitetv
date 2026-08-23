@@ -63,6 +63,14 @@ export default function Footer() {
             <Link href="/about" className={`${navLinkClass} border border-primary/40 px-6 py-2 hover:border-primary focus-visible:border-primary`}>
               About
             </Link>
+            <a
+              href="https://ignitenews.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${navLinkClass} border border-primary/40 px-6 py-2 hover:border-primary focus-visible:border-primary`}
+            >
+              Ignite News ↗
+            </a>
           </nav>
 
           {/* Social Icons */}

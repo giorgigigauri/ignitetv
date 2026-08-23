@@ -1,139 +1,23 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import ShowsGrid from "@/components/shows-grid";
-import VODCard from "@/components/vod-card";
-import VideoPlayer from "@/components/video-player";
-import HorizontalScroller from "@/components/horizontal-scroller";
-import { fetchVODs, formatDuration, categoriesToShows } from "@/lib/data";
+import { notFound, redirect } from "next/navigation";
+import { fetchVODs, slugify } from "@/lib/data";
 
 interface WatchPageProps {
   params: Promise<{ id: string }>;
 }
 
+// Episodes now play inside their show page; keep old /watch links working.
 export default async function WatchPage({ params }: WatchPageProps) {
   const { id } = await params;
   const decodedId = decodeURIComponent(id);
   const categories = await fetchVODs();
 
-  // Find the video across all categories
-  let foundVideo = null;
-  let parentCategory = null;
-  for (const cat of categories) {
-    const video = cat.series.find((s) => s.id === decodedId);
-    if (video) {
-      foundVideo = video;
-      parentCategory = cat;
-      break;
-    }
-  }
+  const parent = categories.find((cat) =>
+    cat.series.some((s) => s.id === decodedId),
+  );
 
-  if (!foundVideo || !parentCategory) {
+  if (!parent) {
     notFound();
   }
 
-  const cleanTitle = foundVideo.title
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
-
-  const relatedItems = parentCategory.series.filter(
-    (s) => s.id !== foundVideo.id,
-  );
-
-  const isIgniteNews = parentCategory.title.toLowerCase().includes("ignite news");
-
-  return (
-    <div className="min-h-screen">
-      <Header shows={categoriesToShows(categories)} />
-
-      <main className="max-w-7xl mx-auto">
-        {/* Page Title */}
-        <div className="px-4 md:px-8 pt-2 pb-2">
-          <h1 className="text-lg font-bold text-primary ">
-            {parentCategory.title}
-          </h1>
-        </div>
-
-        {/* Video Player */}
-        <div className="px-4 md:px-8">
-          <VideoPlayer src={foundVideo.video} poster={foundVideo.imageUrl} />
-        </div>
-
-        {/* Article Title */}
-        <div className="px-4 md:px-8 pt-4">
-          <h2 className="text-xl md:text-2xl font-bold text-primary leading-tight text-balance">
-            {cleanTitle}
-          </h2>
-        </div>
-
-        {/* Article Content */}
-        <div className="px-4 md:px-8 py-6 flex flex-col md:flex-row gap-6">
-          {/* Thumbnail */}
-          <div className="flex-shrink-0 w-full md:w-48">
-            <div className={`relative overflow-hidden rounded-sm bg-muted ${isIgniteNews ? "aspect-video" : "aspect-[3/4]"}`}>
-              <img
-                src={foundVideo.imageUrl || "/placeholder.svg"}
-                alt={cleanTitle}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Text Content */}
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground flex-wrap">
-              {foundVideo.rdate && <span>{foundVideo.rdate}</span>}
-              <Link
-                href={`/shows/${encodeURIComponent(parentCategory.title)}`}
-                className="text-primary hover:underline focus-visible:underline focus-visible:outline-none font-medium"
-              >
-                {parentCategory.title}
-              </Link>
-            </div>
-            {foundVideo.description ? (
-              <p className="text-sm text-foreground leading-relaxed">
-                {foundVideo.description}
-              </p>
-            ) : (
-              <p className="text-sm text-muted-foreground leading-relaxed italic">
-
-              </p>
-            )}
-            {foundVideo.starring && (
-              <p className="text-sm text-muted-foreground mt-2">
-                <span className="text-foreground font-medium">Starring:</span>{" "}
-                {foundVideo.starring}
-              </p>
-            )}
-            {foundVideo.directors && (
-              <p className="text-sm text-muted-foreground mt-1">
-                <span className="text-foreground font-medium">Directed by:</span>{" "}
-                {foundVideo.directors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Related Videos */}
-        {relatedItems.length > 0 && (
-          <section className="px-4 md:px-8 py-6">
-            <h3 className="text-lg font-bold text-primary  mb-4">
-              More from {parentCategory.title}
-            </h3>
-            <HorizontalScroller>
-              {relatedItems.map((item) => (
-                <VODCard key={item.id} item={item} orientation={isIgniteNews ? "landscape" : "portrait"} />
-              ))}
-            </HorizontalScroller>
-          </section>
-        )}
-
-        {/* Shows Section */}
-        <ShowsGrid categories={categories} />
-      </main>
-
-      <Footer />
-    </div>
-  );
+  redirect(`/shows/${slugify(parent.title)}?ep=${encodeURIComponent(decodedId)}`);
 }
